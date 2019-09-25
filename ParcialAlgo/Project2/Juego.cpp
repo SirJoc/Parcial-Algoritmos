@@ -4,14 +4,17 @@
 
 Juego::Juego()
 {	
+	vidas = new Pila<int>();
 	puntuacion = 0;
-	vidas = 3;
 	cant_asteroides_delete = 0;
 	Lst = new Lista<Asteroide*>();
 	Pl = new MyStack<Asteroide*>();
     objNave = new Nave();
 	objNave->cambiar_x(299);
 	objNave->cambiar_y(500);
+	vidas->Push(1);
+	vidas->Push(1);
+	vidas->Push(1);
 }
 Juego::~Juego() {
 	delete objNave;
@@ -176,10 +179,17 @@ void Juego::set_puntuacion(int nuevo)
 
 int Juego::get_vidas()
 {
-	return this->vidas;
+	return vidas->returnLong();
 }
 
 void Juego::set_vidas(int nuevo)
 {
-	this->vidas = nuevo;
+	if (nuevo == 1)
+	{
+		vidas->Push(1);
+	}
+	else
+	{
+		vidas->Pop();
+	}
 }

@@ -4,6 +4,7 @@
 #include "Pilas.h"
 #include "Listas.h"
 #include "Asteroide.h"
+
 public enum direccion { izquierda, derecha, arriba, abajo };
 class Juego
 {
@@ -15,7 +16,7 @@ class Juego
 	int x = 0;
 	int y = 0;
 	long long puntuacion;
-	int vidas;
+	Pila<int>* vidas;
 public:
 	Juego();
 	~Juego();

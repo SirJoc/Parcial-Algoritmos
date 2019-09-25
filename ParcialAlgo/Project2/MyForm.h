@@ -189,7 +189,7 @@ namespace Project2 {
 			}
 			if (objjuego->Colision_Nave_Figura())
 			{
-				objjuego->set_vidas(objjuego->get_vidas() - 1);
+				objjuego->set_vidas(0);
 				objjuego->Volver_Inicio();
 			}
 			if (objjuego->get_vidas() == 0)

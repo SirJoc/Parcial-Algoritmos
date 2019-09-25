@@ -152,6 +152,8 @@ public:
 
 	}
 
+	int returnLong() { return lon; }
+
 	bool esVacia() { return lon == 0; }
 
 	void Pop()
