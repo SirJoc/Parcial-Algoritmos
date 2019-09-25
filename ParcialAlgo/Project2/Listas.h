@@ -105,5 +105,67 @@ public:
 };
 
 
+template <typename T>
+class Pila
+{
+private:
+	uint lon;
+	Node<T>* ini;
+
+	void borrarTodos(Node<T>* n)
+	{
+		if (n != nullptr)
+		{
+			borrarTodos(n->sig);
+			delete n;
+		}
+	}
+
+	void mostrarPrivate(Node<T>* n)
+	{
+		if (n != nullptr)
+		{
+			mostrarPrivate(n->sig);
+			std::cout << n->elem << " -> ";
+		}
+	}
+
+public:
+	Pila() : lon(0), ini(nullptr) {}
+	~Pila() { borrarTodos(ini); }
+
+	void mostrar() { mostrarPrivate(ini); }
+
+	void Push(T elem)
+	{
+		if (esVacia())
+		{
+			ini = new Node<T>(elem);
+			++lon;
+		}
+		else
+		{
+			Node<T>* n = new Node<T>(elem, ini);
+			ini = n;
+			++lon;
+		}
+
+	}
+
+	bool esVacia() { return lon == 0; }
+
+	void Pop()
+	{
+		if (!esVacia())
+		{
+			Node<T>* n = ini;
+			ini = ini->sig;
+			delete n;
+			--lon;
+		}
+		
+	}
+};
+
 
 #endif
