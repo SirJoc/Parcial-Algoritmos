@@ -194,7 +194,15 @@ namespace Project2 {
 			}
 			if (objjuego->get_vidas() == 0)
 			{
+
+				
+
+
 				timer1->Enabled = false;
+				MessageBox::Show("PERDISTE :C");
+			
+				
+			
 			}
 				
 		}
@@ -206,6 +214,7 @@ namespace Project2 {
 		delete g;
 		delete bf;
 		delete bfc;
+
 	}
 
 	private: System::Void MyForm_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
