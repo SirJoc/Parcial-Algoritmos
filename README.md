@@ -1,2 +1,2 @@
 # Parcial-Algoritmos
-Tenemos que subir esto por los dos puntos.
+PIM PAM PUM!
