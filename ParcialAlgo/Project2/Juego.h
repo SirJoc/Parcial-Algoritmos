@@ -6,6 +6,7 @@
 #include "Asteroide.h"
 #include <fstream>
 #include <string>
+#include <sstream>
 
 public enum direccion { izquierda, derecha, arriba, abajo };
 class Juego

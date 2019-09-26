@@ -201,20 +201,12 @@ void Juego::Guardar_Partida()
 	Archivo = fopen("Guardar.txt", "w+");
 	if(Archivo != NULL)
 	{
-
-
 		std::string x = std::to_string(objNave->devolver_x());
 		std::string y = std::to_string(objNave->devolver_y());
 		std::string V = std::to_string(vidas->returnLong());
-		
-		fputs("Ubicacion x: ", Archivo);
-		fputs(x.c_str() , Archivo);
-		fputs("\nUbicacion y: ", Archivo);
-		fputs(y.c_str(), Archivo);
-
-		fputs("\nVidas de la nave: ", Archivo);
-		fputs(V.c_str(), Archivo);
-
+		fputs(x.c_str() , Archivo); fputs(",", Archivo);
+		fputs(y.c_str(), Archivo); fputs(",", Archivo);
+		fputs(V.c_str(), Archivo); fputs(",", Archivo);
 		fclose(Archivo);
 	}
 
@@ -223,21 +215,35 @@ void Juego::Guardar_Partida()
 
 void Juego::Cargar_Partida()
 {
-	//Archivo = fopen("Guardar.txt", "r");
-
-	//std::string x;
-	//char y;
-	//char V;
-
-	//if (Archivo == NULL)	return;
-	//else
-	//{
-	//	while ((x == fgetc(Archivo) != EOF))
-	//	{
-	//		objNave->cambiar_x(std::atoi(x));
-	//	}
-	//	fclose(Archivo);
-	//}
-
-
+	std::ifstream f("Guardar.txt");
+	if (!f.is_open())
+	{
+		return;
+	}
+	else
+	{
+		std::string linea, num;
+		while (f >> linea)
+		{
+			std::stringstream ss(linea);
+			int x, y, v;
+			int cont = 1;
+			while (std::getline(ss, num, ','))
+			{
+				switch (cont)
+				{
+				case 1: x = std::atoi(num.c_str()); break;
+				case 2: y= std::atoi(num.c_str()); break;
+				case 3: v= std::atoi(num.c_str()); break;
+				}
+				cont++;
+			}
+			objNave->cambiar_x(x);
+			objNave->cambiar_y(y);
+			for (int i = 0; i < v; ++i)
+			{
+				vidas->Push(i);
+			}
+		}
+	}
 }
