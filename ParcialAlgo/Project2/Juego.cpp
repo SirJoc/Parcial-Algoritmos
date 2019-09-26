@@ -2,6 +2,7 @@
 #include "Juego.h"
 #include "Asteroide.h"
 
+
 Juego::Juego()
 {	
 	vidas = new Pila<int>();
@@ -192,4 +193,51 @@ void Juego::set_vidas(int nuevo)
 	{
 		vidas->Pop();
 	}
+}
+
+
+void Juego::Guardar_Partida()
+{
+	Archivo = fopen("Guardar.txt", "w+");
+	if(Archivo != NULL)
+	{
+
+
+		std::string x = std::to_string(objNave->devolver_x());
+		std::string y = std::to_string(objNave->devolver_y());
+		std::string V = std::to_string(vidas->returnLong());
+		
+		fputs("Ubicacion x: ", Archivo);
+		fputs(x.c_str() , Archivo);
+		fputs("\nUbicacion y: ", Archivo);
+		fputs(y.c_str(), Archivo);
+
+		fputs("\nVidas de la nave: ", Archivo);
+		fputs(V.c_str(), Archivo);
+
+		fclose(Archivo);
+	}
+
+}
+
+
+void Juego::Cargar_Partida()
+{
+	//Archivo = fopen("Guardar.txt", "r");
+
+	//std::string x;
+	//char y;
+	//char V;
+
+	//if (Archivo == NULL)	return;
+	//else
+	//{
+	//	while ((x == fgetc(Archivo) != EOF))
+	//	{
+	//		objNave->cambiar_x(std::atoi(x));
+	//	}
+	//	fclose(Archivo);
+	//}
+
+
 }

@@ -4,10 +4,15 @@
 #include "Pilas.h"
 #include "Listas.h"
 #include "Asteroide.h"
+#include <fstream>
+#include <string>
 
 public enum direccion { izquierda, derecha, arriba, abajo };
 class Juego
 {
+	char auxX, auxY;
+	FILE* Archivo;
+	std::fstream  mArchivo;
 	Figura **arreglo;
 	Nave* objNave;
 	MyStack<Asteroide*> *Pl;
@@ -42,4 +47,8 @@ public:
 	int get_puntuacion();
 	void set_vidas(int nuevo);
 	int get_vidas();
+	void Guardar_Partida();
+
+	void Cargar_Partida();
+
 };
