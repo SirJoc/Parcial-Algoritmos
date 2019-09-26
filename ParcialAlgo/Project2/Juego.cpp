@@ -240,6 +240,10 @@ void Juego::Cargar_Partida()
 			}
 			objNave->cambiar_x(x);
 			objNave->cambiar_y(y);
+			
+			delete vidas;
+			vidas = new Pila<int>();
+
 			for (int i = 0; i < v; ++i)
 			{
 				vidas->Push(i);

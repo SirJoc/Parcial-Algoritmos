@@ -1,3 +1,1 @@
-Ubicacion x:299
-Ubicacion y:460
-Vidas de la nave::3
+319,440,3,
