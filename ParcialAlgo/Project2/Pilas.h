@@ -15,13 +15,18 @@ public:
 	MyStack() : _top(nullptr) {}
 	~MyStack()
 	{
-		while (!is_empty())
+		eliminarTodos(_top);
+	}
+
+	void eliminarTodos(Node* n)
+	{
+		if (n != nullptr)
 		{
-			Node* aux = _top;
-			_top = _top->next;
-			delete aux;
+			eliminarTodos(n->next);
+			delete n;
 		}
 	}
+
 
 	bool push(T elem)
 	{

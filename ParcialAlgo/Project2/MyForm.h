@@ -206,15 +206,9 @@ namespace Project2 {
 			}
 			if (objjuego->get_vidas() == 0)
 			{
-
-				
-
 				//objjuego->Guardar_Partida();
 				timer1->Enabled = false;
 				MessageBox::Show("PERDISTE :C");
-			
-				
-			
 			}
 				
 		}
