@@ -204,9 +204,11 @@ void Juego::Guardar_Partida()
 		std::string x = std::to_string(objNave->devolver_x());
 		std::string y = std::to_string(objNave->devolver_y());
 		std::string V = std::to_string(vidas->returnLong());
+		std::string P = std::to_string(puntuacion);
 		fputs(x.c_str() , Archivo); fputs(",", Archivo);
 		fputs(y.c_str(), Archivo); fputs(",", Archivo);
 		fputs(V.c_str(), Archivo); fputs(",", Archivo);
+		fputs(P.c_str(), Archivo); fputs(",", Archivo);
 		fclose(Archivo);
 	}
 
@@ -226,7 +228,7 @@ void Juego::Cargar_Partida()
 		while (f >> linea)
 		{
 			std::stringstream ss(linea);
-			int x, y, v;
+			int x, y, v, p;
 			int cont = 1;
 			while (std::getline(ss, num, ','))
 			{
@@ -235,12 +237,13 @@ void Juego::Cargar_Partida()
 				case 1: x = std::atoi(num.c_str()); break;
 				case 2: y= std::atoi(num.c_str()); break;
 				case 3: v= std::atoi(num.c_str()); break;
+				case 4: p = std::atoi(num.c_str()); break;
 				}
 				cont++;
 			}
 			objNave->cambiar_x(x);
 			objNave->cambiar_y(y);
-			
+			puntuacion = p;
 			delete vidas;
 			vidas = new Pila<int>();
 
