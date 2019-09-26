@@ -9,11 +9,11 @@ Nave::~Nave()
 {
 }
 void Nave::Mover_Arriba(System::Drawing::Graphics ^espacio)
-{	if (y - dy > espacio->VisibleClipBounds.Top)
+{	if (y - dy > espacio->VisibleClipBounds.Top+75)
 		y -= dy;
 }
 void Nave::Mover_Abajo(System::Drawing::Graphics ^espacio) 
-{	if (y + dy + largo < espacio->VisibleClipBounds.Bottom)
+{	if (y + dy + largo < espacio->VisibleClipBounds.Bottom-10)
 		y += dy;
 }
 void Nave::Mover_Izquierda(System::Drawing::Graphics ^espacio) 
