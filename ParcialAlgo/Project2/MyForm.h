@@ -21,8 +21,6 @@ namespace Project2 {
 		{
 			InitializeComponent();
 
-			
-
 			objjuego = new Juego();
 			bmpasteroide_01 = gcnew  System::Drawing::Bitmap("../Imagenes/asteroid_01.png");
 			bmpasteroide_02 = gcnew  System::Drawing::Bitmap("../Imagenes/asteroid_02.png");
@@ -91,56 +89,57 @@ namespace Project2 {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(537, 78);
-			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label1->Location = System::Drawing::Point(436, 25);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(66, 17);
+			this->label1->Size = System::Drawing::Size(52, 13);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"PUNTOS";
+			this->label1->Visible = false;
 			this->label1->Click += gcnew System::EventHandler(this, &MyForm::label1_Click);
 			// 
 			// textBox1
 			// 
 			this->textBox1->Enabled = false;
-			this->textBox1->Location = System::Drawing::Point(607, 74);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->textBox1->Location = System::Drawing::Point(488, 22);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(132, 22);
+			this->textBox1->Size = System::Drawing::Size(100, 20);
 			this->textBox1->TabIndex = 1;
+			this->textBox1->Visible = false;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::textBox1_TextChanged);
 			// 
 			// textBox2
 			// 
 			this->textBox2->Enabled = false;
-			this->textBox2->Location = System::Drawing::Point(607, 117);
-			this->textBox2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->textBox2->Location = System::Drawing::Point(488, 57);
 			this->textBox2->Name = L"textBox2";
-			this->textBox2->Size = System::Drawing::Size(132, 22);
+			this->textBox2->Size = System::Drawing::Size(100, 20);
 			this->textBox2->TabIndex = 2;
+			this->textBox2->Visible = false;
 			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox2_TextChanged);
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(541, 117);
-			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label2->Location = System::Drawing::Point(439, 57);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(48, 17);
+			this->label2->Size = System::Drawing::Size(39, 13);
 			this->label2->TabIndex = 3;
 			this->label2->Text = L"VIDAS";
+			this->label2->UseWaitCursor = true;
+			this->label2->Visible = false;
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(800, 738);
+			this->ClientSize = System::Drawing::Size(600, 600);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->label1);
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"MyForm";
 			this->Text = L".";
+			this->Load += gcnew System::EventHandler(this, &MyForm::MyForm_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &MyForm::MyForm_KeyDown);
 			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::MyForm_KeyPress);
 			this->ResumeLayout(false);
@@ -153,10 +152,10 @@ namespace Project2 {
 			//objjuego->Insertar_Figura();
 		if (e->KeyChar == (char)Keys::Space)
 			objjuego->Disparar(nullptr); //NULLPTR
-		if (e->KeyChar == (char)Keys::Enter)
+		if (e->KeyChar == (char)Keys::Enter)	
 		{
 			objjuego->set_y(1);
-			segundos = 0;
+			segundos = -15;
 		}
 		if (e->KeyChar == (char)Keys::Escape)
 		{
@@ -172,6 +171,8 @@ namespace Project2 {
 		BufferedGraphics ^bf = bfc->Allocate(g, this->ClientRectangle);
 		bf->Graphics->FillRectangle(gcnew System::Drawing::SolidBrush(Color::Transparent), g->ClipBounds);
 		objjuego->Mostrar_Portada(bf->Graphics, bmpportada);
+		textBox1->Text = objjuego->get_puntuacion().ToString();
+		textBox2->Text = objjuego->get_vidas().ToString();
 		if (segundos < 20)
 		{
 			if (segundos % 3 == 0)
@@ -182,18 +183,22 @@ namespace Project2 {
 			{
 				objjuego->set_x(0);
 			}
-
 		}
 		else
 		{
-			bf->Graphics->FillRectangle(gcnew System::Drawing::SolidBrush(Color::Transparent), g->ClipBounds);
-			objjuego->Mostrar_Mapa(bf->Graphics, bmpmapa);
+			bf->Graphics->FillRectangle(gcnew System::Drawing::SolidBrush(Color::Transparent), g->ClipBounds);			
 			objjuego->Mover_Figuras(bf->Graphics);
+			objjuego->Mostrar_Mapa(bf->Graphics, bmpmapa);
 			objjuego->Mostrar_Figuras(bf->Graphics, bmpasteroide_01, bmpasteroide_02);
 			objjuego->Mostrar_Nave(bf->Graphics, bmpnave);
 			objjuego->Mover_Balas(bf->Graphics);
 			objjuego->Colision_Bala_Figura();
 			objjuego->eliminar_Asteroides();
+			objjuego->set_puntuacion(objjuego->get_puntuacion() + 1);
+			label1->Visible = true;
+			label2->Visible = true;
+			textBox1->Visible = true;
+			textBox2->Visible = true;
 			if (segundos % 20 == 0)
 			{
 				objjuego->Insertar_Figura(1);
@@ -206,23 +211,14 @@ namespace Project2 {
 			}
 			if (objjuego->get_vidas() == 0)
 			{
-
-				
-
-				//objjuego->Guardar_Partida();
 				timer1->Enabled = false;
-				MessageBox::Show("PERDISTE :C");
-			
-				
-			
+				MessageBox::Show("PERDISTE :C");		
 			}
 				
-		}
-		segundos++;
-		objjuego->set_puntuacion(objjuego->get_puntuacion() + 2);
-		textBox1->Text = objjuego->get_puntuacion().ToString();
-		textBox2->Text = objjuego->get_vidas().ToString();
+		}		
 		
+		
+		segundos++;
 
 		bf->Render(g);
 		delete g;
@@ -243,7 +239,7 @@ namespace Project2 {
 		if (e->KeyCode == Keys::G)
 			objjuego->Guardar_Partida();
 		if (e->KeyCode == Keys::C)
-			objjuego->Cargar_Partida();
+			objjuego->Cargar_Partida();	
 
 	}
 	private: System::Void textBox1_TextChanged(System::Object^  sender, System::EventArgs^  e) {
@@ -252,6 +248,8 @@ namespace Project2 {
 private: System::Void label1_Click(System::Object^  sender, System::EventArgs^  e) {
 }
 private: System::Void TextBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void MyForm_Load(System::Object^  sender, System::EventArgs^  e) {
 }
 };
 }
